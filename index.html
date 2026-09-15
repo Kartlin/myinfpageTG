@@ -345,12 +345,37 @@
         width: 100%;
         text-align: center;
       }
+      .sound-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 11px 16px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: #ffffff;
+        background: rgba(30, 41, 59, 0.85);
+        cursor: pointer;
+        font: inherit;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+      
+      .sound-button:hover {
+        background: rgba(167, 139, 250, 0.8);
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <audio id="backgroundMusic" src="./music.mp3"></audio>
+
+<button class="sound-button" id="soundButton" type="button">
+  🔊 Включить звук
+</button>
+  
   <header id="home">
     <div class="container">
       <div class="hero">
@@ -501,5 +526,24 @@
     </div>
   </footer>
 
+  <script>
+  const music = document.getElementById("backgroundMusic");
+  const soundButton = document.getElementById("soundButton");
+
+  soundButton.addEventListener("click", async () => {
+    if (music.paused) {
+      await music.play();
+      soundButton.textContent = "⏸ Поставить на паузу";
+    } else {
+      music.pause();
+      soundButton.textContent = "🔊 Включить звук";
+    }
+  });
+
+  music.addEventListener("ended", () => {
+    soundButton.textContent = "🔊 Включить звук";
+  });
+</script>
+  
 </body>
 </html>
