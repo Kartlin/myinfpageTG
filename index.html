@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Моя страница</title>
-</head>
-<body>
-    <h1>Привет!</h1>
-    <p>Это моя страница с полезной информацией.</p>
-    <p><a href="https://t.me/ваш_чат">Анонимный чат</a></p>
-    <p><a href="https://t.me/ваш_список">Список — если не знаете, что подарить</a></p>
-</body>
-</html>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Обо мне</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(30, 41, 59, 0.78);
+      --card-light: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #a78bfa;
+      --accent-2: #38bdf8;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(167, 139, 250, 0.28), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.2), transparent 35%),
+        var(--bg);
+      line-height:
