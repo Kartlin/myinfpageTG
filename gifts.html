@@ -537,7 +537,7 @@
     });
   </script>
 
-  <!-- Скрипт личных подарков -->
+  <!-- Скрипт личных подарков (единственный) -->
   <script>
     const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
 
@@ -619,6 +619,9 @@
         grid.appendChild(card);
       });
     }
+
+    // Вызываем ровно один раз после загрузки страницы
+    document.addEventListener('DOMContentLoaded', renderPersonalGifts);
   </script>
 
 </body>
