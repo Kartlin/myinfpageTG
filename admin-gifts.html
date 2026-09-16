@@ -315,6 +315,11 @@
             <input id="g-photo" placeholder="https://..." />
           </div>
 
+          <div class="form-row">
+            <label for="g-price">Цена</label>
+            <input id="g-price" placeholder="~ 1 500 ₽" />
+          </div>
+
           <div class="form-actions">
             <button class="btn btn-primary" onclick="saveGift()">Сохранить подарок</button>
             <button class="btn" onclick="clearForm()">Очистить форму</button>
@@ -355,7 +360,7 @@
       list.forEach((gift, index) => {
         const item = document.createElement('div');
         item.className = 'gift-item';
-
+        
         if (gift.photo) {
           const img = document.createElement('img');
           img.src = gift.photo;
@@ -371,6 +376,19 @@
           const desc = document.createElement('p');
           desc.textContent = gift.desc;
           item.appendChild(desc);
+        }
+
+        const title = document.createElement('h3');
+        title.textContent = gift.name || 'Без названия';
+        item.appendChild(title);
+        
+        if (gift.price) {
+          const priceEl = document.createElement('div');
+          priceEl.style.color = 'var(--accent-2)';
+          priceEl.style.fontWeight = 'bold';
+          priceEl.style.marginBottom = '6px';
+          priceEl.textContent = gift.price;
+          item.appendChild(priceEl);
         }
 
         if (gift.link) {
@@ -408,21 +426,22 @@
       const desc = document.getElementById('g-desc').value.trim();
       const link = document.getElementById('g-link').value.trim();
       const photo = document.getElementById('g-photo').value.trim();
-
-      if (!name && !desc && !link && !photo) {
+      const price = document.getElementById('g-price').value.trim();
+    
+      if (!name && !desc && !link && !photo && !price) {
         alert('Заполните хотя бы одно поле');
         return;
       }
-
+    
       const gifts = loadGifts();
       const index = parseInt(indexInput.value, 10);
-
+    
       if (index >= 0 && index < gifts.length) {
-        gifts[index] = { name, desc, link, photo };
+        gifts[index] = { name, desc, link, photo, price };
       } else {
-        gifts.push({ name, desc, link, photo });
+        gifts.push({ name, desc, link, photo, price });
       }
-
+    
       saveGifts(gifts);
       clearForm();
       renderGifts();
@@ -434,6 +453,7 @@
       document.getElementById('g-desc').value = '';
       document.getElementById('g-link').value = '';
       document.getElementById('g-photo').value = '';
+      document.getElementById('g-price').value = '';
     }
 
     function editGift(index) {
@@ -445,6 +465,7 @@
       document.getElementById('g-desc').value = gift.desc || '';
       document.getElementById('g-link').value = gift.link || '';
       document.getElementById('g-photo').value = gift.photo || '';
+      document.getElementById('g-price').value = gift.price || '';
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
