@@ -519,6 +519,13 @@
         article.appendChild(title);
       }
 
+      if (gift.price) {
+        const priceEl = document.createElement('div');
+        priceEl.className = 'gift-price';
+        priceEl.textContent = gift.price;
+        article.appendChild(priceEl);
+      }
+
       if (gift.desc) {
         const desc = document.createElement('div');
         desc.className = 'gift-description';
