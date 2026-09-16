@@ -106,7 +106,6 @@
       color: var(--accent);
     }
 
-    /* ШАБЛОН: Секция категории */
     .category-section {
       margin-bottom: 50px;
     }
@@ -125,7 +124,6 @@
       gap: 20px;
     }
 
-    /* ШАБЛОН: Карточка подарка */
     .gift-card {
       padding: 22px;
       border: 1px solid var(--border);
@@ -192,7 +190,6 @@
       transform: translateY(-2px);
     }
 
-    /* Инструкция по добавлению */
     .instructions {
       margin-top: 60px;
       padding: 28px;
@@ -259,6 +256,11 @@
     <div class="container">
       <a class="back-button" href="index.html">← На главную</a>
 
+      <!-- Кнопка «Для меня» с паролем -->
+      <button id="adminBtn" class="back-button" type="button" style="margin-left: 10px;">
+        🔒 Для меня
+      </button>
+
       <div class="page-title">
         <span class="small-label">подарочки</span>
         <h1>
@@ -272,30 +274,58 @@
   </header>
 
   <main>
-    <header>
-      <div class="container">
-        <a class="back-button" href="index.html">← На главную</a>
-        <button id="adminBtn" class="back-button" type="button" style="margin-left: 10px;">
-          🔒 Для меня
-        </button>
-        
     <section>
       <div class="container">
 
-        <!-- ===== ИРЛ ПОДАРКИ ===== -->
-        <!-- Скопируй этот блок и измени название категории -->
-        <div class="category-section" id="personal-gifts-section" style="display: none;">
-          <h2 class="category-title">🎁 мои личные хотелки</h2>
-          <div class="gifts-grid" id="personal-gifts-grid"></div>
+        <!-- ===== УНИВЕРСАЛИЗ ===== -->
+        <div class="category-section">
+          <h2 class="category-title">🎲 универсализ</h2>
+
+          <div class="gifts-grid">
+
+            <!-- Жетон DogTag -->
+            <article class="gift-card">
+              <div class="gift-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXmUiVgWPIgIPm3ZHPuiecABxDo67uOaCVITvkFT9sg&s=10" alt="Жетон DogTag">
+              </div>
+              <div class="gift-title">Жетон DogTag</div>
+              <div class="gift-price">~ 1 500 ₽</div>
+              <div class="gift-description">
+                Металлические жетоны как у американских солдат с выбитыми именем и чем то на ваш вкус. Да и ваще любая вещь на заказ будет крутой, даже если от вас.
+              </div>
+              <a class="gift-link" href="https://www.ozon.ru/product/podveska-5640536965/?at=1rql1PfFAZ3GNPtrLIUZJux1JDsDsFa9&sh=X6DavnyWyQ" target="_blank" rel="noopener noreferrer">
+                Купить(OZON)
+              </a>
+            </article>
+
+            <!-- Коврик для мыши -->
+            <article class="gift-card">
+              <div class="gift-image">
+                <img src="https://amikovry.ru/upload/iblock/246/41810bdbgkxm78718q2433h21b57akmi/Amikovry_Eureka_2_2_W.jpg" alt="Коврик для мыши">
+              </div>
+              <div class="gift-title">Коврик для мыши</div>
+              <div class="gift-price">~500 ₽</div>
+              <div class="gift-description">
+                Туго без коврика на весь стол. Одноцветный или же с уморительным рисунком будет в самый раз.
+              </div>
+              <a class="gift-link" href="https://www.ozon.ru/category/kovriki-dlya-myshi-15744/?category_was_predicted=true&deny_category_prediction=true&from_global=true&text=%D0%BA%D0%BE%D0%B2%D1%80%D0%B8%D0%BA+%D0%B4%D0%BB%D1%8F+%D0%BC%D1%8B%D1%88%D0%B8" target="_blank" rel="noopener noreferrer">
+                Выбрать на Ozon →
+              </a>
+            </article>
+
+          </div>
         </div>
 
-        <!-- ===== ОНЛАЙН!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ===== -->
+        <!-- ===== ОНЛАЙН ===== -->
         <div class="category-section">
           <h2 class="category-title">онлайн грязюка, если вам лень парится о доставке</h2>
 
+          <div class="gifts-grid">
+
+            <!-- Подарки ТГ -->
             <article class="gift-card">
               <div class="gift-image">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1EuSibXhangdqE_CfPM7j0hyfgtifYomPJdV_hZn7gw&s=10" alt="Мерч">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1EuSibXhangdqE_CfPM7j0hyfgtifYomPJdV_hZn7gw&s=10" alt="Подарки ТГ">
               </div>
               <div class="gift-title">Подарки ТГ</div>
               <div class="gift-price">~скокахотите ₽</div>
@@ -307,7 +337,7 @@
               </a>
             </article>
 
-          <!-- Пример подарка 1 -->
+            <!-- Игра из желаемого в Steam -->
             <article class="gift-card">
               <div class="gift-image">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyfj8sKevxfZt1CQ_3_iV2qhf2vXNsGKtIwfGqXZ95LQ&s=10" alt="Игра из желаемого">
@@ -321,9 +351,47 @@
                 Смотреть список →
               </a>
             </article>
-          
+
           </div>
         </div>
+
+        <!-- ===== ЛИЧНЫЕ ПОДАРКИ (из админки) ===== -->
+        <div class="category-section" id="personal-gifts-section" style="display: none;">
+          <h2 class="category-title">🎁 мои личные хотелки</h2>
+          <div class="gifts-grid" id="personal-gifts-grid"></div>
+        </div>
+
+        <!-- Инструкция -->
+        <div class="instructions">
+          <h3>📝 это чисто мне шаблон, сюда можете не глядеть, всё равно фиг чё поймёте</h3>
+          <p style="color: var(--muted); margin-bottom: 16px;">
+            "ШАБЛОН":
+          </p>
+          <code>
+&lt;article class="gift-card"&gt;
+  &lt;div class="gift-image"&gt;
+    &lt;img src="ссылка_на_картинку" alt="название"&gt;
+  &lt;/div&gt;
+  &lt;div class="gift-title"&gt;Название подарка&lt;/div&gt;
+  &lt;div class="gift-price"&gt;~ цена ₽&lt;/div&gt;
+  &lt;div class="gift-description"&gt;Описание&lt;/div&gt;
+  &lt;a class="gift-link" href="ссылка_на_товар"&gt;Купить →&lt;/a&gt;
+&lt;/article&gt;
+          </code>
+          <p style="color: var(--muted);">
+            блок категории <code>&lt;div class="category-section"&gt;...&lt;/div&gt;</code> 
+            и изменить название в <code>&lt;h2 class="category-title"&gt;</code>.
+          </p>
+
+          <!-- Ссылка на админку (опционально) -->
+          <p style="color: var(--muted); margin-top: 16px;">
+            <a href="admin-gifts.html" style="color: var(--accent);">
+              Перейти в админку подарков (только для меня)
+            </a>
+          </p>
+        </div>
+
+      </div>
     </section>
   </main>
 
@@ -333,90 +401,6 @@
     </div>
   </footer>
 
-  <script>
-    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
-  
-    function loadPersonalGifts() {
-      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
-      if (!raw) return [];
-      try {
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
-    }
-  
-    function createGiftCard(gift) {
-      const article = document.createElement('article');
-      article.className = 'gift-card';
-  
-      if (gift.photo) {
-        const imgWrap = document.createElement('div');
-        imgWrap.className = 'gift-image';
-        const img = document.createElement('img');
-        img.src = gift.photo;
-        img.alt = gift.name || 'Фото подарка';
-        imgWrap.appendChild(img);
-        article.appendChild(imgWrap);
-      }
-  
-      if (gift.name) {
-        const title = document.createElement('div');
-        title.className = 'gift-title';
-        title.textContent = gift.name;
-        article.appendChild(title);
-      }
-  
-      if (gift.price && String(gift.price).trim() !== '') {
-        const priceEl = document.createElement('div');
-        priceEl.className = 'gift-price';
-        priceEl.textContent = gift.price;
-        article.appendChild(priceEl);
-      }
-  
-      if (gift.desc) {
-        const desc = document.createElement('div');
-        desc.className = 'gift-description';
-        desc.textContent = gift.desc;
-        article.appendChild(desc);
-      }
-  
-      if (gift.link) {
-        const link = document.createElement('a');
-        link.className = 'gift-link';
-        link.href = gift.link;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'Купить →';
-        article.appendChild(link);
-      }
-  
-      return article;
-    }
-  
-    function renderPersonalGifts() {
-      const gifts = loadPersonalGifts();
-      const section = document.getElementById('personal-gifts-section');
-      const grid = document.getElementById('personal-gifts-grid');
-      if (!section || !grid) return;
-  
-      grid.innerHTML = '';
-  
-      if (!gifts.length) {
-        section.style.display = 'none';
-        return;
-      }
-  
-      section.style.display = '';
-      gifts.forEach(gift => {
-        const card = createGiftCard(gift);
-        grid.appendChild(card);
-      });
-    }
-  
-    document.addEventListener('DOMContentLoaded', renderPersonalGifts);
-  </script>
   <!-- Модальное окно для пароля -->
   <div id="adminModal" style="
     display: none;
@@ -443,7 +427,7 @@
       <p style="color: #d4c4e8; margin-bottom: 16px; font-size: 14px;">
         Введи пароль, чтобы перейти к управлению подарками.
       </p>
-  
+
       <input
         id="adminPassword"
         type="password"
@@ -459,7 +443,7 @@
           margin-bottom: 14px;
         "
       />
-  
+
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button
           id="confirmAdmin"
@@ -491,7 +475,7 @@
           Отмена
         </button>
       </div>
-  
+
       <p id="adminError" style="
         color: #fca5a5;
         margin-top: 12px;
@@ -500,8 +484,74 @@
       ">
         Неверный пароль.
       </p>
+    </div>
   </div>
+
+  <!-- Скрипт проверки пароля -->
   <script>
+    // Вставь сюда хеш своего пароля (получи через hash.html)
+    const CURRENT_PASSWORD_HASH =
+      "ЗАМЕНИ_МЕНЯ_НА_ХЕШ_ПАРОЛЯ";
+
+    async function sha256Hex(message) {
+      const enc = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    const adminModal = document.getElementById("adminModal");
+    const adminBtn = document.getElementById("adminBtn");
+    const confirmAdmin = document.getElementById("confirmAdmin");
+    const cancelAdmin = document.getElementById("cancelAdmin");
+    const adminPassword = document.getElementById("adminPassword");
+    const adminError = document.getElementById("adminError");
+
+    adminBtn?.addEventListener("click", () => {
+      adminModal.style.display = "flex";
+      adminPassword.value = "";
+      adminError.style.display = "none";
+      adminPassword.focus();
+    });
+
+    cancelAdmin?.addEventListener("click", () => {
+      adminModal.style.display = "none";
+    });
+
+    confirmAdmin?.addEventListener("click", async () => {
+      const pwd = adminPassword.value;
+      const hash = await sha256Hex(pwd);
+
+      if (hash === CURRENT_PASSWORD_HASH) {
+        window.location.href = "admin-gifts.html";
+      } else {
+        adminError.style.display = "block";
+        adminPassword.value = "";
+      }
+    });
+
+    adminPassword?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        confirmAdmin?.click();
+      }
+    });
+  </script>
+
+  <!-- Скрипт личных подарков -->
+  <script>
+    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
+
+    function loadPersonalGifts() {
+      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
     function createGiftCard(gift) {
       const article = document.createElement('article');
       article.className = 'gift-card';
@@ -523,7 +573,7 @@
         article.appendChild(title);
       }
 
-      if (gift.price) {
+      if (gift.price && String(gift.price).trim() !== '') {
         const priceEl = document.createElement('div');
         priceEl.className = 'gift-price';
         priceEl.textContent = gift.price;
@@ -550,76 +600,28 @@
       return article;
     }
 
-    function renderPersonalGiftsInCategory(categoryContainer) {
+    function renderPersonalGifts() {
       const gifts = loadPersonalGifts();
-      if (!gifts.length) return;
+      const section = document.getElementById('personal-gifts-section');
+      const grid = document.getElementById('personal-gifts-grid');
+      if (!section || !grid) return;
 
-      const grid = categoryContainer.querySelector('.gifts-grid');
-      if (!grid) return;
+      grid.innerHTML = '';
 
+      if (!gifts.length) {
+        section.style.display = 'none';
+        return;
+      }
+
+      section.style.display = '';
       gifts.forEach(gift => {
         const card = createGiftCard(gift);
         grid.appendChild(card);
       });
     }
 
-    // Находим все категории и добавляем личные подарки в первую категорию
-    document.addEventListener('DOMContentLoaded', () => {
-      const categories = document.querySelectorAll('.category-section');
-      if (categories.length > 0) {
-        // Добавляем личные подарки в первую категорию
-        renderPersonalGiftsInCategory(categories[0]);
-      }
-    });
-
-    // Хеш правильного пароля (SHA-256, hex)
-    // Ты задаёшь свой пароль ниже в функции hashPassword и один раз получаешь хеш.
-    // Потом вставляешь полученный хеш сюда вместо CURRENT_PASSWORD_HASH.
-    const CURRENT_PASSWORD_HASH =
-      "83cf8f33c8c124ff197acb8c228b86843b17905b0d3428a28063d2b5d7ce53c1"; 
-  
-    async function sha256Hex(message) {
-      const enc = new TextEncoder().encode(message);
-      const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-    }
-  
-    const adminModal = document.getElementById("adminModal");
-    const adminBtn = document.getElementById("adminBtn");
-    const confirmAdmin = document.getElementById("confirmAdmin");
-    const cancelAdmin = document.getElementById("cancelAdmin");
-    const adminPassword = document.getElementById("adminPassword");
-    const adminError = document.getElementById("adminError");
-  
-    adminBtn?.addEventListener("click", () => {
-      adminModal.style.display = "flex";
-      adminPassword.value = "";
-      adminError.style.display = "none";
-      adminPassword.focus();
-    });
-  
-    cancelAdmin?.addEventListener("click", () => {
-      adminModal.style.display = "none";
-    });
-  
-    confirmAdmin?.addEventListener("click", async () => {
-      const pwd = adminPassword.value;
-      const hash = await sha256Hex(pwd);
-  
-      if (hash === CURRENT_PASSWORD_HASH) {
-        window.location.href = "admin-gifts.html";
-      } else {
-        adminError.style.display = "block";
-        adminPassword.value = "";
-      }
-    });
-  
-    adminPassword?.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        confirmAdmin?.click();
-      }
-    });
+    document.addEventListener('DOMContentLoaded', renderPersonalGifts);
   </script>
+
 </body>
 </html>
