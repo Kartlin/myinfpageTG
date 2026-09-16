@@ -1,32 +1,32 @@
-!DOCTYPE html
-html lang=ru
-head
-  meta charset=UTF-8 
-  titleГенератор хеша пароляtitle
-head
-body
-  h2Введи пароль, получи хешh2
-  input id=pwd type=text placeholder=Пароль style=width 260px; padding 8px; 
-  button id=gen style=padding 8px 12px;Сгенерировать хешbutton
-  pre id=out style=margin-top 16px; white-space pre-wrap;pre
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Генератор хеша пароля</title>
+</head>
+<body>
+  <h2>Введи пароль, получи хеш</h2>
+  <input id="pwd" type="text" placeholder="Пароль" style="width: 260px; padding: 8px;" />
+  <button id="gen" style="padding: 8px 12px;">Сгенерировать хеш</button>
+  <pre id="out" style="margin-top: 16px; white-space: pre-wrap;"></pre>
 
-  script
+  <script>
     async function sha256Hex(message) {
       const enc = new TextEncoder().encode(message);
-      const hashBuffer = await crypto.subtle.digest(SHA-256, enc);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b = b.toString(16).padStart(2, 0)).join();
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     }
 
-    document.getElementById(gen).addEventListener(click, async () = {
-      const pwd = document.getElementById(pwd).value;
+    document.getElementById("gen").addEventListener("click", async () => {
+      const pwd = document.getElementById("pwd").value;
       if (!pwd) {
-        document.getElementById(out).textContent = Введи пароль!;
+        document.getElementById("out").textContent = "Введи пароль!";
         return;
       }
       const hash = await sha256Hex(pwd);
-      document.getElementById(out).textContent = hash;
+      document.getElementById("out").textContent = hash;
     });
-  script
-body
-html
+  </script>
+</body>
+</html>
