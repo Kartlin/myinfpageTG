@@ -216,6 +216,12 @@
       font-size: 19px;
     }
 
+    .gift-item .gift-price {
+      color: var(--accent-2);
+      font-weight: bold;
+      font-size: 15px;
+    }
+
     .gift-item p {
       color: var(--muted);
       font-size: 15px;
@@ -345,7 +351,13 @@
 
     function loadGifts() {
       const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
     }
 
     function saveGifts(gifts) {
@@ -360,7 +372,7 @@
       list.forEach((gift, index) => {
         const item = document.createElement('div');
         item.className = 'gift-item';
-        
+
         if (gift.photo) {
           const img = document.createElement('img');
           img.src = gift.photo;
@@ -372,23 +384,18 @@
         title.textContent = gift.name || 'Без названия';
         item.appendChild(title);
 
+        // Цена (если есть)
+        if (gift.price && String(gift.price).trim() !== '') {
+          const priceEl = document.createElement('div');
+          priceEl.className = 'gift-price';
+          priceEl.textContent = gift.price;
+          item.appendChild(priceEl);
+        }
+
         if (gift.desc) {
           const desc = document.createElement('p');
           desc.textContent = gift.desc;
           item.appendChild(desc);
-        }
-
-        const title = document.createElement('h3');
-        title.textContent = gift.name || 'Без названия';
-        item.appendChild(title);
-        
-        if (gift.price) {
-          const priceEl = document.createElement('div');
-          priceEl.style.color = 'var(--accent-2)';
-          priceEl.style.fontWeight = 'bold';
-          priceEl.style.marginBottom = '6px';
-          priceEl.textContent = gift.price;
-          item.appendChild(priceEl);
         }
 
         if (gift.link) {
@@ -427,21 +434,29 @@
       const link = document.getElementById('g-link').value.trim();
       const photo = document.getElementById('g-photo').value.trim();
       const price = document.getElementById('g-price').value.trim();
-    
+
       if (!name && !desc && !link && !photo && !price) {
         alert('Заполните хотя бы одно поле');
         return;
       }
-    
+
       const gifts = loadGifts();
       const index = parseInt(indexInput.value, 10);
-    
+
+      const normalizedGift = {
+        name: name || '',
+        desc: desc || '',
+        link: link || '',
+        photo: photo || '',
+        price: price || ''
+      };
+
       if (index >= 0 && index < gifts.length) {
-        gifts[index] = { name, desc, link, photo, price };
+        gifts[index] = normalizedGift;
       } else {
-        gifts.push({ name, desc, link, photo, price });
+        gifts.push(normalizedGift);
       }
-    
+
       saveGifts(gifts);
       clearForm();
       renderGifts();
