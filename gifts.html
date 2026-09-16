@@ -272,6 +272,13 @@
   </header>
 
   <main>
+    <header>
+      <div class="container">
+        <a class="back-button" href="index.html">← На главную</a>
+        <button id="adminBtn" class="back-button" type="button" style="margin-left: 10px;">
+          🔒 Для меня
+        </button>
+        
     <section>
       <div class="container">
 
@@ -399,5 +406,209 @@
     </div>
   </footer>
 
+  <!-- Модальное окно для пароля -->
+  <div id="adminModal" style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  ">
+    <div style="
+      width: min(92%, 420px);
+      padding: 28px;
+      border-radius: 18px;
+      background: rgba(45, 27, 62, 0.9);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #f8fafc;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    ">
+      <h2 style="margin-bottom: 12px; font-size: 24px;">
+        Вход в админку
+      </h2>
+      <p style="color: #d4c4e8; margin-bottom: 16px; font-size: 14px;">
+        Введи пароль, чтобы перейти к управлению подарками.
+      </p>
+  
+      <input
+        id="adminPassword"
+        type="password"
+        placeholder="Пароль"
+        style="
+          width: 100%;
+          padding: 10px 12px;
+          border-radius: 10px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.05);
+          color: #f8fafc;
+          font: inherit;
+          margin-bottom: 14px;
+        "
+      />
+  
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button
+          id="confirmAdmin"
+          type="button"
+          style="
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #ec4899, #f97316);
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+          "
+        >
+          Войти
+        </button>
+        <button
+          id="cancelAdmin"
+          type="button"
+          style="
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.06);
+            color: #f8fafc;
+            cursor: pointer;
+          "
+        >
+          Отмена
+        </button>
+      </div>
+  
+      <p id="adminError" style="
+        color: #fca5a5;
+        margin-top: 12px;
+        font-size: 14px;
+        display: none;
+      ">
+        Неверный пароль.
+      </p>
+  </div>
+  <script>
+    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
+
+    function loadPersonalGifts() {
+      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+
+    function createGiftCard(gift) {
+      const article = document.createElement('article');
+      article.className = 'gift-card';
+
+      if (gift.photo) {
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'gift-image';
+        const img = document.createElement('img');
+        img.src = gift.photo;
+        img.alt = gift.name || 'Фото подарка';
+        imgWrap.appendChild(img);
+        article.appendChild(imgWrap);
+      }
+
+      if (gift.name) {
+        const title = document.createElement('div');
+        title.className = 'gift-title';
+        title.textContent = gift.name;
+        article.appendChild(title);
+      }
+
+      if (gift.desc) {
+        const desc = document.createElement('div');
+        desc.className = 'gift-description';
+        desc.textContent = gift.desc;
+        article.appendChild(desc);
+      }
+
+      if (gift.link) {
+        const link = document.createElement('a');
+        link.className = 'gift-link';
+        link.href = gift.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Купить →';
+        article.appendChild(link);
+      }
+
+      return article;
+    }
+
+    function renderPersonalGiftsInCategory(categoryContainer) {
+      const gifts = loadPersonalGifts();
+      if (!gifts.length) return;
+
+      const grid = categoryContainer.querySelector('.gifts-grid');
+      if (!grid) return;
+
+      gifts.forEach(gift => {
+        const card = createGiftCard(gift);
+        grid.appendChild(card);
+      });
+    }
+
+    // Находим все категории и добавляем личные подарки в первую категорию
+    document.addEventListener('DOMContentLoaded', () => {
+      const categories = document.querySelectorAll('.category-section');
+      if (categories.length > 0) {
+        // Добавляем личные подарки в первую категорию
+        renderPersonalGiftsInCategory(categories[0]);
+      }
+    });
+
+    // Хеш правильного пароля (SHA-256, hex)
+    // Ты задаёшь свой пароль ниже в функции hashPassword и один раз получаешь хеш.
+    // Потом вставляешь полученный хеш сюда вместо CURRENT_PASSWORD_HASH.
+    const CURRENT_PASSWORD_HASH =
+      "SHA-256"; 
+  
+    async function sha256Hex(message) {
+      const enc = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+  
+    const adminModal = document.getElementById("adminModal");
+    const adminBtn = document.getElementById("adminBtn");
+    const confirmAdmin = document.getElementById("confirmAdmin");
+    const cancelAdmin = document.getElementById("cancelAdmin");
+    const adminPassword = document.getElementById("adminPassword");
+    const adminError = document.getElementById("adminError");
+  
+    adminBtn?.addEventListener("click", () => {
+      adminModal.style.display = "flex";
+      adminPassword.value = "";
+      adminError.style.display = "none";
+      adminPassword.focus();
+    });
+  
+    cancelAdmin?.addEventListener("click", () => {
+      adminModal.style.display = "none";
+    });
+  
+    confirmAdmin?.addEventListener("click", async () => {
+      const pwd = adminPassword.value;
+      const hash = await sha256Hex(pwd);
+  
+      if (hash === CURRENT_PASSWORD_HASH) {
+        window.location.href = "admin-gifts.html";
+      } else {
+        adminError.style.display = "block";
+        adminPassword.value = "";
+      }
+    });
+  
+    adminPassword?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        confirmAdmin?.click();
+      }
+    });
+  </script>
 </body>
 </html>
