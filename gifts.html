@@ -284,10 +284,10 @@
 
         <!-- ===== ИРЛ ПОДАРКИ ===== -->
         <!-- Скопируй этот блок и измени название категории -->
-        <div class="category-section">
-          <h2 class="category-title">🎲 универсализ</h2>
-
-          <div class="gifts-grid">
+        <div class="category-section" id="personal-gifts-section" style="display: none;">
+          <h2 class="category-title">🎁 мои личные хотелки</h2>
+          <div class="gifts-grid" id="personal-gifts-grid"></div>
+        </div>
 
         <!-- ===== ОНЛАЙН!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ===== -->
         <div class="category-section">
@@ -333,6 +333,90 @@
     </div>
   </footer>
 
+  <script>
+    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
+  
+    function loadPersonalGifts() {
+      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+  
+    function createGiftCard(gift) {
+      const article = document.createElement('article');
+      article.className = 'gift-card';
+  
+      if (gift.photo) {
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'gift-image';
+        const img = document.createElement('img');
+        img.src = gift.photo;
+        img.alt = gift.name || 'Фото подарка';
+        imgWrap.appendChild(img);
+        article.appendChild(imgWrap);
+      }
+  
+      if (gift.name) {
+        const title = document.createElement('div');
+        title.className = 'gift-title';
+        title.textContent = gift.name;
+        article.appendChild(title);
+      }
+  
+      if (gift.price && String(gift.price).trim() !== '') {
+        const priceEl = document.createElement('div');
+        priceEl.className = 'gift-price';
+        priceEl.textContent = gift.price;
+        article.appendChild(priceEl);
+      }
+  
+      if (gift.desc) {
+        const desc = document.createElement('div');
+        desc.className = 'gift-description';
+        desc.textContent = gift.desc;
+        article.appendChild(desc);
+      }
+  
+      if (gift.link) {
+        const link = document.createElement('a');
+        link.className = 'gift-link';
+        link.href = gift.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Купить →';
+        article.appendChild(link);
+      }
+  
+      return article;
+    }
+  
+    function renderPersonalGifts() {
+      const gifts = loadPersonalGifts();
+      const section = document.getElementById('personal-gifts-section');
+      const grid = document.getElementById('personal-gifts-grid');
+      if (!section || !grid) return;
+  
+      grid.innerHTML = '';
+  
+      if (!gifts.length) {
+        section.style.display = 'none';
+        return;
+      }
+  
+      section.style.display = '';
+      gifts.forEach(gift => {
+        const card = createGiftCard(gift);
+        grid.appendChild(card);
+      });
+    }
+  
+    document.addEventListener('DOMContentLoaded', renderPersonalGifts);
+  </script>
   <!-- Модальное окно для пароля -->
   <div id="adminModal" style="
     display: none;
@@ -418,13 +502,6 @@
       </p>
   </div>
   <script>
-    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
-
-    function loadPersonalGifts() {
-      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    }
-
     function createGiftCard(gift) {
       const article = document.createElement('article');
       article.className = 'gift-card';
