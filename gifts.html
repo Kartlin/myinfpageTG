@@ -277,43 +277,10 @@
     <section>
       <div class="container">
 
-        <!-- ===== УНИВЕРСАЛИЗ ===== -->
+        <!-- ===== УНИВЕРСАЛИЗ (сюда сохраняются новые подарки) ===== -->
         <div class="category-section">
           <h2 class="category-title">🎲 универсализ</h2>
-
-          <div class="gifts-grid">
-
-            <!-- Жетон DogTag -->
-            <article class="gift-card">
-              <div class="gift-image">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXmUiVgWPIgIPm3ZHPuiecABxDo67uOaCVITvkFT9sg&s=10" alt="Жетон DogTag">
-              </div>
-              <div class="gift-title">Жетон DogTag</div>
-              <div class="gift-price">~ 1 500 ₽</div>
-              <div class="gift-description">
-                Металлические жетоны как у американских солдат с выбитыми именем и чем то на ваш вкус. Да и ваще любая вещь на заказ будет крутой, даже если от вас.
-              </div>
-              <a class="gift-link" href="https://www.ozon.ru/product/podveska-5640536965/?at=1rql1PfFAZ3GNPtrLIUZJux1JDsDsFa9&sh=X6DavnyWyQ" target="_blank" rel="noopener noreferrer">
-                Купить(OZON)
-              </a>
-            </article>
-
-            <!-- Коврик для мыши -->
-            <article class="gift-card">
-              <div class="gift-image">
-                <img src="https://amikovry.ru/upload/iblock/246/41810bdbgkxm78718q2433h21b57akmi/Amikovry_Eureka_2_2_W.jpg" alt="Коврик для мыши">
-              </div>
-              <div class="gift-title">Коврик для мыши</div>
-              <div class="gift-price">~500 ₽</div>
-              <div class="gift-description">
-                Туго без коврика на весь стол. Одноцветный или же с уморительным рисунком будет в самый раз.
-              </div>
-              <a class="gift-link" href="https://www.ozon.ru/category/kovriki-dlya-myshi-15744/?category_was_predicted=true&deny_category_prediction=true&from_global=true&text=%D0%BA%D0%BE%D0%B2%D1%80%D0%B8%D0%BA+%D0%B4%D0%BB%D1%8F+%D0%BC%D1%8B%D1%88%D0%B8" target="_blank" rel="noopener noreferrer">
-                Выбрать на Ozon →
-              </a>
-            </article>
-
-          </div>
+          <div class="gifts-grid" id="irl-gifts-grid"></div>
         </div>
 
         <!-- ===== ОНЛАЙН ===== -->
@@ -355,12 +322,6 @@
           </div>
         </div>
 
-        <!-- ===== ЛИЧНЫЕ ПОДАРКИ (из админки) ===== -->
-        <div class="category-section" id="personal-gifts-section" style="display: none;">
-          <h2 class="category-title">🎁 мои личные хотелки</h2>
-          <div class="gifts-grid" id="personal-gifts-grid"></div>
-        </div>
-
         <!-- Инструкция -->
         <div class="instructions">
           <h3>📝 это чисто мне шаблон, сюда можете не глядеть, всё равно фиг чё поймёте</h3>
@@ -383,7 +344,7 @@
             и изменить название в <code>&lt;h2 class="category-title"&gt;</code>.
           </p>
 
-          <!-- Ссылка на админку (опционально) -->
+          <!-- Ссылка на админку -->
           <p style="color: var(--muted); margin-top: 16px;">
             <a href="admin-gifts.html" style="color: var(--accent);">
               Перейти в админку подарков (только для меня)
@@ -489,9 +450,8 @@
 
   <!-- Скрипт проверки пароля -->
   <script>
-    // Вставь сюда хеш своего пароля (получи через hash.html)
     const CURRENT_PASSWORD_HASH =
-      "ЗАМЕНИ_МЕНЯ_НА_ХЕШ_ПАРОЛЯ";
+      "209be2bcd6f59e44476c2516c1cea71d3453dbb7ba023b46235183f5aca803fe";
 
     async function sha256Hex(message) {
       const enc = new TextEncoder().encode(message);
@@ -507,18 +467,18 @@
     const adminPassword = document.getElementById("adminPassword");
     const adminError = document.getElementById("adminError");
 
-    adminBtn?.addEventListener("click", () => {
+    adminBtn.addEventListener("click", () => {
       adminModal.style.display = "flex";
       adminPassword.value = "";
       adminError.style.display = "none";
-      adminPassword.focus();
+      setTimeout(() => adminPassword.focus(), 50);
     });
 
-    cancelAdmin?.addEventListener("click", () => {
+    cancelAdmin.addEventListener("click", () => {
       adminModal.style.display = "none";
     });
 
-    confirmAdmin?.addEventListener("click", async () => {
+    confirmAdmin.addEventListener("click", async () => {
       const pwd = adminPassword.value;
       const hash = await sha256Hex(pwd);
 
@@ -527,17 +487,18 @@
       } else {
         adminError.style.display = "block";
         adminPassword.value = "";
+        adminPassword.focus();
       }
     });
 
-    adminPassword?.addEventListener("keydown", (e) => {
+    adminPassword.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        confirmAdmin?.click();
+        confirmAdmin.click();
       }
     });
   </script>
 
-  <!-- Скрипт личных подарков (единственный) -->
+  <!-- Скрипт личных подарков (ИРЛ) -->
   <script>
     const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
 
@@ -602,25 +563,17 @@
 
     function renderPersonalGifts() {
       const gifts = loadPersonalGifts();
-      const section = document.getElementById('personal-gifts-section');
-      const grid = document.getElementById('personal-gifts-grid');
-      if (!section || !grid) return;
+      const grid = document.getElementById('irl-gifts-grid');
+      if (!grid) return;
 
       grid.innerHTML = '';
 
-      if (!gifts.length) {
-        section.style.display = 'none';
-        return;
-      }
-
-      section.style.display = '';
       gifts.forEach(gift => {
         const card = createGiftCard(gift);
         grid.appendChild(card);
       });
     }
 
-    // Вызываем ровно один раз после загрузки страницы
     document.addEventListener('DOMContentLoaded', renderPersonalGifts);
   </script>
 
