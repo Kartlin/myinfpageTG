@@ -384,7 +384,6 @@
         title.textContent = gift.name || 'Без названия';
         item.appendChild(title);
 
-        // Цена (если есть)
         if (gift.price && String(gift.price).trim() !== '') {
           const priceEl = document.createElement('div');
           priceEl.className = 'gift-price';
