@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Мои подарки (админка)</title>
 
   <style>
@@ -19,16 +18,8 @@
       --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
@@ -39,32 +30,11 @@
         var(--bg);
       line-height: 1.6;
     }
-
-    a {
-      color: var(--accent-2);
-      text-decoration: none;
-      transition: 0.25s ease;
-    }
-
-    a:hover {
-      color: #fdba74;
-      text-decoration: underline;
-    }
-
-    .container {
-      width: min(1100px, 92%);
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 60px 0 40px;
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
+    a { color: var(--accent-2); text-decoration: none; transition: 0.25s ease; }
+    a:hover { color: #fdba74; text-decoration: underline; }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    header { padding: 60px 0 40px; }
+    .page-title { text-align: center; margin-bottom: 50px; }
     .small-label {
       display: inline-block;
       margin-bottom: 18px;
@@ -75,36 +45,16 @@
       background: var(--card-light);
       font-size: 14px;
     }
-
-    h1 {
-      font-size: clamp(36px, 6vw, 64px);
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-    }
-
+    h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.1; letter-spacing: -1.5px; }
     .gradient-text {
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
-    .subtitle {
-      max-width: 600px;
-      margin: 16px auto 0;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    section {
-      padding: 40px 0 80px;
-    }
-
-    .section-title {
-      margin-bottom: 30px;
-      font-size: 28px;
-      color: var(--accent);
-    }
+    .subtitle { max-width: 600px; margin: 16px auto 0; color: var(--muted); font-size: 18px; }
+    section { padding: 40px 0 80px; }
+    .section-title { margin-bottom: 30px; font-size: 28px; color: var(--accent); }
 
     .admin-panel {
       padding: 28px;
@@ -115,40 +65,19 @@
       backdrop-filter: blur(12px);
       margin-bottom: 40px;
     }
-
-    .form-row {
-      margin-bottom: 14px;
-    }
-
-    .form-row label {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .form-row input,
-    .form-row textarea {
+    .form-row { margin-bottom: 14px; }
+    .form-row label { display: block; margin-bottom: 6px; color: var(--muted); font-size: 14px; }
+    .form-row input, .form-row textarea {
       width: 100%;
       padding: 10px 12px;
       border-radius: 10px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
       color: var(--text);
       font: inherit;
     }
-
-    .form-row textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
+    .form-row textarea { min-height: 80px; resize: vertical; }
+    .form-actions { display: flex; gap: 10px; flex-wrap: wrap; }
     .btn {
       display: inline-block;
       padding: 11px 16px;
@@ -160,38 +89,25 @@
       font: inherit;
       transition: 0.2s ease;
     }
-
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.14);
-      text-decoration: none;
-    }
-
+    .btn:hover { background: rgba(255,255,255,0.14); text-decoration: none; }
     .btn-primary {
       background: linear-gradient(135deg, #ec4899, #f97316);
       border: none;
-      box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+      box-shadow: 0 8px 20px rgba(236,72,153,0.25);
     }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-    }
-
+    .btn-primary:hover { transform: translateY(-2px); }
     .btn-danger {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239,68,68,0.15);
+      border-color: rgba(239,68,68,0.4);
       color: #fca5a5;
     }
-
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.25);
-    }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
 
     .gifts-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
     }
-
     .gift-item {
       padding: 22px;
       border: 1px solid var(--border);
@@ -203,44 +119,24 @@
       flex-direction: column;
       gap: 12px;
     }
-
     .gift-item img {
       width: 100%;
       height: 180px;
       object-fit: cover;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.05);
     }
-
-    .gift-item h3 {
-      font-size: 19px;
-    }
-
-    .gift-item .gift-price {
-      color: var(--accent-2);
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .gift-item p {
-      color: var(--muted);
-      font-size: 15px;
-      flex-grow: 1;
-    }
-
+    .gift-item h3 { font-size: 19px; }
+    .gift-item .gift-price { color: var(--accent-2); font-weight: bold; font-size: 15px; }
+    .gift-item p { color: var(--muted); font-size: 15px; flex-grow: 1; }
     .gift-item a {
       display: inline-block;
       padding: 10px 14px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255,255,255,0.08);
       text-align: center;
     }
-
-    .gift-item .actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .gift-item .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
     .back-button {
       display: inline-block;
@@ -251,196 +147,261 @@
       color: var(--muted);
       background: var(--card-light);
     }
-
     .back-button:hover {
       color: var(--text);
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.12);
     }
-
     footer {
       padding: 30px 0;
       border-top: 1px solid var(--border);
       color: var(--muted);
       text-align: center;
     }
-
     @media (max-width: 800px) {
-      .gifts-list {
-        grid-template-columns: 1fr;
-      }
+      .gifts-list { grid-template-columns: 1fr; }
+      section { padding: 30px 0 60px; }
     }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .status.error { color: #fca5a5; }
+    .status.success { color: #86efac; }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <div class="container">
-      <a class="back-button" href="index.html">← На главную</a>
-      <a class="back-button" href="gifts.html">← К обычному списку</a>
+<header>
+  <div class="container">
+    <a class="back-button" href="index.html">← На главную</a>
+    <a class="back-button" href="gifts.html">← К обычному списку</a>
 
-      <div class="page-title">
-        <span class="small-label">админка</span>
-        <h1>
-          Управление <span class="gradient-text">подарками</span>
-        </h1>
-        <p class="subtitle">
-          Добавляй, редактируй и удаляй подарки. Данные хранятся только в твоём браузере.
-        </p>
-      </div>
+    <div class="page-title">
+      <span class="small-label">админка</span>
+      <h1>
+        Управление <span class="gradient-text">подарками</span>
+      </h1>
+      <p class="subtitle">
+        Добавляй, редактируй и удаляй подарки. Данные сохраняются в gifts.json в репозитории.
+      </p>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section>
-      <div class="container">
+<main>
+  <section>
+    <div class="container">
 
-        <div class="admin-panel">
-          <h2 class="section-title">Добавить / редактировать подарок</h2>
+      <div class="admin-panel">
+        <h2 class="section-title">Добавить / редактировать подарок</h2>
 
-          <input type="hidden" id="g-index" value="-1" />
+        <input type="hidden" id="g-index" value="-1" />
 
-          <div class="form-row">
-            <label for="g-name">Название</label>
-            <input id="g-name" placeholder="Например: Коврик для мыши" />
-          </div>
-
-          <div class="form-row">
-            <label for="g-desc">Описание</label>
-            <textarea id="g-desc" placeholder="Краткое описание подарка"></textarea>
-          </div>
-
-          <div class="form-row">
-            <label for="g-link">Ссылка на товар</label>
-            <input id="g-link" placeholder="https://..." />
-          </div>
-
-          <div class="form-row">
-            <label for="g-photo">URL фото</label>
-            <input id="g-photo" placeholder="https://..." />
-          </div>
-
-          <div class="form-row">
-            <label for="g-price">Цена</label>
-            <input id="g-price" placeholder="~ 1 500 ₽" />
-          </div>
-
-          <div class="form-actions">
-            <button class="btn btn-primary" onclick="saveGift()">Сохранить подарок</button>
-            <button class="btn" onclick="clearForm()">Очистить форму</button>
-            <button class="btn btn-danger" onclick="clearAllGifts()">Удалить весь список</button>
-          </div>
+        <div class="form-row">
+          <label for="g-name">Название</label>
+          <input id="g-name" placeholder="Например: Коврик для мыши" />
         </div>
 
-        <h2 class="section-title">Список подарков</h2>
-        <div id="gifts-list" class="gifts-list"></div>
+        <div class="form-row">
+          <label for="g-desc">Описание</label>
+          <textarea id="g-desc" placeholder="Краткое описание подарка"></textarea>
+        </div>
 
+        <div class="form-row">
+          <label for="g-link">Ссылка на товар</label>
+          <input id="g-link" placeholder="https://..." />
+        </div>
+
+        <div class="form-row">
+          <label for="g-photo">URL фото</label>
+          <input id="g-photo" placeholder="https://..." />
+        </div>
+
+        <div class="form-row">
+          <label for="g-price">Цена</label>
+          <input id="g-price" placeholder="~ 1 500 ₽" />
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" id="saveBtn">Сохранить подарок</button>
+          <button class="btn" id="clearBtn">Очистить форму</button>
+          <button class="btn btn-danger" id="clearAllBtn">Удалить весь список</button>
+        </div>
+
+        <div id="status" class="status"></div>
       </div>
-    </section>
-  </main>
 
-  <footer>
-    <div class="container">
-      © 2026 Kartlin. Админка для личного списка подарков.
+      <h2 class="section-title">Список подарков</h2>
+      <div id="gifts-list" class="gifts-list"></div>
+
     </div>
-  </footer>
+  </section>
+</main>
 
-  <script>
-    const STORAGE_KEY = 'my_personal_gifts';
+<footer>
+  <div class="container">
+    © 2026 Kartlin. Админка для личного списка подарков.
+  </div>
+</footer>
 
-    function loadGifts() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return [];
-      try {
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
+<script>
+  // ===== НАСТРОЙКИ =====
+  const GITHUB_USERNAME = 'Kartlin';
+  const GITHUB_REPO = 'myinfpageTG';
+  const GITHUB_TOKEN = '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';
+  const FILE_PATH = 'gifts.json';
+  const BRANCH = 'main'; // или 'master', если у тебя так
+  // =====================
+
+  const statusEl = document.getElementById('status');
+
+  function setStatus(text, type = '') {
+    statusEl.textContent = text;
+    statusEl.className = 'status ' + type;
+  }
+
+  async function getFileContent() {
+    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}?ref=${BRANCH}`;
+    const res = await fetch(url, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
       }
+    });
+
+    if (!res.ok) {
+      if (res.status === 404) {
+        // файла нет, считаем что пустой массив
+        return { content: [], sha: null };
+      }
+      throw new Error('Не удалось получить файл: ' + res.status);
     }
 
-    function saveGifts(gifts) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(gifts));
+    const data = await res.json();
+    const raw = atob(data.content);
+    let json;
+    try {
+      json = JSON.parse(raw);
+    } catch {
+      json = [];
+    }
+    return { content: json, sha: data.sha };
+  }
+
+  async function saveFile(content, sha) {
+    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${FILE_PATH}`;
+    const body = {
+      message: 'Update gifts.json via admin',
+      content: btoa(JSON.stringify(content, null, 2)),
+      branch: BRANCH
+    };
+    if (sha) {
+      body.sha = sha;
     }
 
-    function renderGifts() {
-      const list = loadGifts();
-      const container = document.getElementById('gifts-list');
-      container.innerHTML = '';
+    const res = await fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
 
-      list.forEach((gift, index) => {
-        const item = document.createElement('div');
-        item.className = 'gift-item';
-
-        if (gift.photo) {
-          const img = document.createElement('img');
-          img.src = gift.photo;
-          img.alt = gift.name || 'Фото подарка';
-          item.appendChild(img);
-        }
-
-        const title = document.createElement('h3');
-        title.textContent = gift.name || 'Без названия';
-        item.appendChild(title);
-
-        if (gift.price && String(gift.price).trim() !== '') {
-          const priceEl = document.createElement('div');
-          priceEl.className = 'gift-price';
-          priceEl.textContent = gift.price;
-          item.appendChild(priceEl);
-        }
-
-        if (gift.desc) {
-          const desc = document.createElement('p');
-          desc.textContent = gift.desc;
-          item.appendChild(desc);
-        }
-
-        if (gift.link) {
-          const a = document.createElement('a');
-          a.href = gift.link;
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-          a.textContent = 'Открыть ссылку';
-          item.appendChild(a);
-        }
-
-        const actions = document.createElement('div');
-        actions.className = 'actions';
-
-        const editBtn = document.createElement('button');
-        editBtn.className = 'btn';
-        editBtn.textContent = 'Редактировать';
-        editBtn.onclick = () => editGift(index);
-        actions.appendChild(editBtn);
-
-        const delBtn = document.createElement('button');
-        delBtn.className = 'btn btn-danger';
-        delBtn.textContent = 'Удалить';
-        delBtn.onclick = () => deleteGift(index);
-        actions.appendChild(delBtn);
-
-        item.appendChild(actions);
-        container.appendChild(item);
-      });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error('Не удалось сохранить файл: ' + res.status + ' ' + errText);
     }
+  }
 
-    function saveGift() {
-      const indexInput = document.getElementById('g-index');
-      const name = document.getElementById('g-name').value.trim();
-      const desc = document.getElementById('g-desc').value.trim();
-      const link = document.getElementById('g-link').value.trim();
-      const photo = document.getElementById('g-photo').value.trim();
-      const price = document.getElementById('g-price').value.trim();
+  async function loadGifts() {
+    const { content } = await getFileContent();
+    return Array.isArray(content) ? content : [];
+  }
 
-      if (!name && !desc && !link && !photo && !price) {
-        alert('Заполните хотя бы одно поле');
-        return;
+  async function renderGifts() {
+    const list = await loadGifts();
+    const container = document.getElementById('gifts-list');
+    container.innerHTML = '';
+
+    list.forEach((gift, index) => {
+      const item = document.createElement('div');
+      item.className = 'gift-item';
+
+      if (gift.photo) {
+        const img = document.createElement('img');
+        img.src = gift.photo;
+        img.alt = gift.name || 'Фото подарка';
+        item.appendChild(img);
       }
 
-      const gifts = loadGifts();
-      const index = parseInt(indexInput.value, 10);
+      const title = document.createElement('h3');
+      title.textContent = gift.name || 'Без названия';
+      item.appendChild(title);
+
+      if (gift.price && String(gift.price).trim() !== '') {
+        const priceEl = document.createElement('div');
+        priceEl.className = 'gift-price';
+        priceEl.textContent = gift.price;
+        item.appendChild(priceEl);
+      }
+
+      if (gift.desc) {
+        const desc = document.createElement('p');
+        desc.textContent = gift.desc;
+        item.appendChild(desc);
+      }
+
+      if (gift.link) {
+        const a = document.createElement('a');
+        a.href = gift.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'Открыть ссылку';
+        item.appendChild(a);
+      }
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+
+      const editBtn = document.createElement('button');
+      editBtn.className = 'btn';
+      editBtn.textContent = 'Редактировать';
+      editBtn.onclick = () => editGift(index);
+      actions.appendChild(editBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn btn-danger';
+      delBtn.textContent = 'Удалить';
+      delBtn.onclick = () => deleteGift(index);
+      actions.appendChild(delBtn);
+
+      item.appendChild(actions);
+      container.appendChild(item);
+    });
+  }
+
+  async function saveGift() {
+    const indexInput = document.getElementById('g-index');
+    const name = document.getElementById('g-name').value.trim();
+    const desc = document.getElementById('g-desc').value.trim();
+    const link = document.getElementById('g-link').value.trim();
+    const photo = document.getElementById('g-photo').value.trim();
+    const price = document.getElementById('g-price').value.trim();
+
+    if (!name && !desc && !link && !photo && !price) {
+      alert('Заполните хотя бы одно поле');
+      return;
+    }
+
+    try {
+      setStatus('Сохранение...', '');
+      const { content: gifts, sha } = await getFileContent();
 
       const normalizedGift = {
         name: name || '',
@@ -450,56 +411,81 @@
         price: price || ''
       };
 
+      const index = parseInt(indexInput.value, 10);
       if (index >= 0 && index < gifts.length) {
         gifts[index] = normalizedGift;
       } else {
         gifts.push(normalizedGift);
       }
 
-      saveGifts(gifts);
+      await saveFile(gifts, sha);
+      setStatus('Подарок сохранён! Обновите gifts.html, чтобы увидеть изменения.', 'success');
       clearForm();
-      renderGifts();
+      await renderGifts();
+    } catch (e) {
+      console.error(e);
+      setStatus('Ошибка при сохранении: ' + e.message, 'error');
     }
+  }
 
-    function clearForm() {
-      document.getElementById('g-index').value = '-1';
-      document.getElementById('g-name').value = '';
-      document.getElementById('g-desc').value = '';
-      document.getElementById('g-link').value = '';
-      document.getElementById('g-photo').value = '';
-      document.getElementById('g-price').value = '';
-    }
+  function clearForm() {
+    document.getElementById('g-index').value = '-1';
+    document.getElementById('g-name').value = '';
+    document.getElementById('g-desc').value = '';
+    document.getElementById('g-link').value = '';
+    document.getElementById('g-photo').value = '';
+    document.getElementById('g-price').value = '';
+  }
 
-    function editGift(index) {
-      const gifts = loadGifts();
-      const gift = gifts[index];
+  async function editGift(index) {
+    const gifts = await loadGifts();
+    const gift = gifts[index];
 
-      document.getElementById('g-index').value = String(index);
-      document.getElementById('g-name').value = gift.name || '';
-      document.getElementById('g-desc').value = gift.desc || '';
-      document.getElementById('g-link').value = gift.link || '';
-      document.getElementById('g-photo').value = gift.photo || '';
-      document.getElementById('g-price').value = gift.price || '';
+    document.getElementById('g-index').value = String(index);
+    document.getElementById('g-name').value = gift.name || '';
+    document.getElementById('g-desc').value = gift.desc || '';
+    document.getElementById('g-link').value = gift.link || '';
+    document.getElementById('g-photo').value = gift.photo || '';
+    document.getElementById('g-price').value = gift.price || '';
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-    function deleteGift(index) {
-      if (!confirm('Удалить этот подарок?')) return;
-      const gifts = loadGifts();
+  async function deleteGift(index) {
+    if (!confirm('Удалить этот подарок?')) return;
+    try {
+      setStatus('Удаление...', '');
+      const { content: gifts, sha } = await getFileContent();
       gifts.splice(index, 1);
-      saveGifts(gifts);
-      renderGifts();
+      await saveFile(gifts, sha);
+      setStatus('Подарок удалён! Обновите gifts.html, чтобы увидеть изменения.', 'success');
+      await renderGifts();
+    } catch (e) {
+      console.error(e);
+      setStatus('Ошибка при удалении: ' + e.message, 'error');
     }
+  }
 
-    function clearAllGifts() {
-      if (!confirm('Удалить ВЕСЬ список подарков? Это действие нельзя отменить.')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      renderGifts();
+  async function clearAllGifts() {
+    if (!confirm('Удалить ВЕСЬ список подарков? Это действие нельзя отменить.')) return;
+    try {
+      setStatus('Удаление всего списка...', '');
+      const { sha } = await getFileContent();
+      await saveFile([], sha);
+      setStatus('Список очищен! Обновите gifts.html.', 'success');
+      await renderGifts();
+    } catch (e) {
+      console.error(e);
+      setStatus('Ошибка при очистке: ' + e.message, 'error');
     }
+  }
 
-    renderGifts();
-  </script>
+  document.getElementById('saveBtn').addEventListener('click', saveGift);
+  document.getElementById('clearBtn').addEventListener('click', clearForm);
+  document.getElementById('clearAllBtn').addEventListener('click', clearAllGifts);
+
+  renderGifts();
+</script>
 
 </body>
 </html>
