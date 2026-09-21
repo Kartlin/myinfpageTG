@@ -468,81 +468,84 @@
 
   <!-- Скрипт личных подарков (ИРЛ) -->
   <script>
-    const PERSONAL_STORAGE_KEY = 'my_personal_gifts';
+    <script>
+  // ===== НАСТРОЙКИ =====
+  const GITHUB_USERNAME = 'Kartlin';
+  const GITHUB_REPO = 'myinfpageTG';
+  const BRANCH = 'main'; // или 'master'
+  // =====================
 
-    function loadPersonalGifts() {
-      const raw = localStorage.getItem(PERSONAL_STORAGE_KEY);
-      if (!raw) return [];
-      try {
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch {
-        return [];
-      }
+  async function loadGiftsFromJson() {
+    const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${BRANCH}/gifts.json`;
+    const res = await fetch(url);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  }
+
+  function createGiftCard(gift) {
+    const article = document.createElement('article');
+    article.className = 'gift-card';
+
+    if (gift.photo) {
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'gift-image';
+      const img = document.createElement('img');
+      img.src = gift.photo;
+      img.alt = gift.name || 'Фото подарка';
+      imgWrap.appendChild(img);
+      article.appendChild(imgWrap);
     }
 
-    function createGiftCard(gift) {
-      const article = document.createElement('article');
-      article.className = 'gift-card';
-
-      if (gift.photo) {
-        const imgWrap = document.createElement('div');
-        imgWrap.className = 'gift-image';
-        const img = document.createElement('img');
-        img.src = gift.photo;
-        img.alt = gift.name || 'Фото подарка';
-        imgWrap.appendChild(img);
-        article.appendChild(imgWrap);
-      }
-
-      if (gift.name) {
-        const title = document.createElement('div');
-        title.className = 'gift-title';
-        title.textContent = gift.name;
-        article.appendChild(title);
-      }
-
-      if (gift.price && String(gift.price).trim() !== '') {
-        const priceEl = document.createElement('div');
-        priceEl.className = 'gift-price';
-        priceEl.textContent = gift.price;
-        article.appendChild(priceEl);
-      }
-
-      if (gift.desc) {
-        const desc = document.createElement('div');
-        desc.className = 'gift-description';
-        desc.textContent = gift.desc;
-        article.appendChild(desc);
-      }
-
-      if (gift.link) {
-        const link = document.createElement('a');
-        link.className = 'gift-link';
-        link.href = gift.link;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'Купить →';
-        article.appendChild(link);
-      }
-
-      return article;
+    if (gift.name) {
+      const title = document.createElement('div');
+      title.className = 'gift-title';
+      title.textContent = gift.name;
+      article.appendChild(title);
     }
 
-    function renderPersonalGifts() {
-      const gifts = loadPersonalGifts();
-      const grid = document.getElementById('irl-gifts-grid');
-      if (!grid) return;
-
-      grid.innerHTML = '';
-
-      gifts.forEach(gift => {
-        const card = createGiftCard(gift);
-        grid.appendChild(card);
-      });
+    if (gift.price && String(gift.price).trim() !== '') {
+      const priceEl = document.createElement('div');
+      priceEl.className = 'gift-price';
+      priceEl.textContent = gift.price;
+      article.appendChild(priceEl);
     }
 
-    document.addEventListener('DOMContentLoaded', renderPersonalGifts);
+    if (gift.desc) {
+      const desc = document.createElement('div');
+      desc.className = 'gift-description';
+      desc.textContent = gift.desc;
+      article.appendChild(desc);
+    }
+
+    if (gift.link) {
+      const link = document.createElement('a');
+      link.className = 'gift-link';
+      link.href = gift.link;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'Купить →';
+      article.appendChild(link);
+    }
+
+    return article;
+  }
+
+  async function renderGifts() {
+    const gifts = await loadGiftsFromJson();
+    const grid = document.getElementById('irl-gifts-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    gifts.forEach(gift => {
+      const card = createGiftCard(gift);
+      grid.appendChild(card);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderGifts);
+</script>
   </script>
 
 </body>
