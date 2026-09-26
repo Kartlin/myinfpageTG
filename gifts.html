@@ -277,10 +277,45 @@
     <section>
       <div class="container">
 
-        <!-- ===== УНИВЕРСАЛИЗ (сюда сохраняются новые подарки) ===== -->
+        <!-- ===== УНИВЕРСАЛИЗ (подарки ИРЛ) ===== -->
         <div class="category-section">
           <h2 class="category-title">🎲 универсализ</h2>
-          <div class="gifts-grid" id="irl-gifts-grid"></div>
+
+          <div class="gifts-grid">
+
+            <!-- Пример подарка 1 -->
+            <article class="gift-card">
+              <div class="gift-image">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIXmUiVgWPIgIPm3ZHPuiecABxDo67uOaCVITvkFT9sg&s=10" alt="Жетон DogTag">
+              </div>
+              <div class="gift-title">Жетон DogTag</div>
+              <div class="gift-price">~ 1 500 ₽</div>
+              <div class="gift-description">
+                Металлические жетоны как у американских солдат с выбитыми именем и чем то на ваш вкус. Да и ваще любая вещь на заказ будет крутой, даже если от вас.
+              </div>
+              <a class="gift-link" href="https://www.ozon.ru/product/podveska-5640536965/?at=1rql1PfFAZ3GNPtrLIUZJux1JDsDsFa9&sh=X6DavnyWyQ" target="_blank" rel="noopener noreferrer">
+                Купить(OZON)
+              </a>
+            </article>
+
+            <!-- Пример подарка 2 -->
+            <article class="gift-card">
+              <div class="gift-image">
+                <img src="https://amikovry.ru/upload/iblock/246/41810bdbgkxm78718q2433h21b57akmi/Amikovry_Eureka_2_2_W.jpg" alt="Коврик для мыши">
+              </div>
+              <div class="gift-title">Коврик для мыши</div>
+              <div class="gift-price">~500 ₽</div>
+              <div class="gift-description">
+                Туго без коврика на весь стол. Одноцветный или же с уморительным рисунком будет в самый раз.
+              </div>
+              <a class="gift-link" href="https://www.ozon.ru/category/kovriki-dlya-myshi-15744/?category_was_predicted=true&deny_category_prediction=true&from_global=true&text=%D0%BA%D0%BE%D0%B2%D1%80%D0%B8%D0%BA+%D0%B4%D0%BB%D1%8F+%D0%BC%D1%8B%D1%88%D0%B8" target="_blank" rel="noopener noreferrer">
+                Выбрать на Ozon →
+              </a>
+            </article>
+
+            <!-- Копируй блок выше, чтобы добавить новый подарок -->
+
+          </div>
         </div>
 
         <!-- ===== ОНЛАЙН ===== -->
@@ -451,7 +486,7 @@
   <!-- Скрипт проверки пароля -->
   <script>
     const CURRENT_PASSWORD_HASH =
-      "94026ed3f20a217455d5b63d7a7fea452955e5f9ebbef9c803006317212947a7";
+      "94026ed3f20a217455d5b63d7a7fea452955e5f9ebfef9c803006317212947a7";
 
     async function sha256Hex(message) {
       const enc = new TextEncoder().encode(message);
@@ -496,86 +531,6 @@
         confirmAdmin.click();
       }
     });
-  </script>
-
-  <!-- Скрипт личных подарков (ИРЛ) -->
-  <script>
-    // ===== НАСТРОЙКИ =====
-    const GITHUB_USERNAME = 'Kartlin';
-    const GITHUB_REPO = 'myinfpageTG';
-    const BRANCH = 'main'; // или 'master', если у тебя так
-    // =====================
-
-    async function loadGiftsFromJson() {
-      const url = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${BRANCH}/gifts.json`;
-      const res = await fetch(url);
-      if (!res.ok) return [];
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    }
-
-    function createGiftCard(gift) {
-      const article = document.createElement('article');
-      article.className = 'gift-card';
-
-      if (gift.photo) {
-        const imgWrap = document.createElement('div');
-        imgWrap.className = 'gift-image';
-        const img = document.createElement('img');
-        img.src = gift.photo;
-        img.alt = gift.name || 'Фото подарка';
-        imgWrap.appendChild(img);
-        article.appendChild(imgWrap);
-      }
-
-      if (gift.name) {
-        const title = document.createElement('div');
-        title.className = 'gift-title';
-        title.textContent = gift.name;
-        article.appendChild(title);
-      }
-
-      if (gift.price && String(gift.price).trim() !== '') {
-        const priceEl = document.createElement('div');
-        priceEl.className = 'gift-price';
-        priceEl.textContent = gift.price;
-        article.appendChild(priceEl);
-      }
-
-      if (gift.desc) {
-        const desc = document.createElement('div');
-        desc.className = 'gift-description';
-        desc.textContent = gift.desc;
-        article.appendChild(desc);
-      }
-
-      if (gift.link) {
-        const link = document.createElement('a');
-        link.className = 'gift-link';
-        link.href = gift.link;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'Купить →';
-        article.appendChild(link);
-      }
-
-      return article;
-    }
-
-    async function renderGifts() {
-      const gifts = await loadGiftsFromJson();
-      const grid = document.getElementById('irl-gifts-grid');
-      if (!grid) return;
-
-      grid.innerHTML = '';
-
-      gifts.forEach(gift => {
-        const card = createGiftCard(gift);
-        grid.appendChild(card);
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', renderGifts);
   </script>
 
 </body>
